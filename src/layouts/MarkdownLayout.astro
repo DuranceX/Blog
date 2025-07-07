@@ -1,0 +1,145 @@
+---
+import ColorfulTag from "@/components/ColorfulTag.astro"
+import { getPosts } from "@/utils/collections"
+import { formatNumber } from "@/utils/format"
+import { localImages } from "@/utils/imageMap"
+
+const { post } = Astro.props
+const data = post.data
+const math = post.data.math
+let index = -1;
+
+const posts = await getPosts();
+const entry = posts.reduce((acc:any[], temp) => {
+    if(temp.data.title === post.data.title){
+        index = acc.length;
+    }
+    acc.push({
+        slug: temp.slug,
+        title: temp.data.title
+    })
+    return acc;
+}, []);
+
+const wordCount = formatNumber(post.body.length)
+let coverImg = {
+  src: '',
+  alt: data.image?.alt || '',
+};
+
+// 判断是否是本地图片路径
+if (data.image?.url?.startsWith('../attachment/')) {
+  try {
+    console.log('src',data.image);
+    const pathKey = `../content/${data.image.url.replace('../', '')}`;
+    console.log('pathKey',pathKey);
+    console.log('localImages',localImages);
+    coverImg.src = localImages[pathKey].src || '';
+  } catch (error) {
+    console.log('coverImg',coverImg);
+  }
+} else {
+  coverImg.src = data.image?.url || '';
+}
+---
+<html>
+    <head><base target="_blank" /></head>
+    <script type="text/javascript" id="MathJax-script" defer
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+    </script>
+</html>
+<div class="flex flex-col card-width card-style items-center py-16 mt-12 px-8" >
+    <div class="flex flex-col items-start w-full max-w-[65ch]">
+        <!-- tags -->
+        <div class="flex flex-wrap">
+            {data.tags.map((tag:string) => (
+                <ColorfulTag tag={tag} />
+            ))}
+        </div>
+        <!-- title -->
+        <div class=" mt-4 text-2xl font-bold">
+            {data.title}
+        </div>
+        <!-- words count and so on -->
+        <div class=" mt-5 text-sm text-[--sub-font-color]">
+            共计 {wordCount} words，预计阅读时间 {Math.ceil(post.body.length/200)} min
+        </div>
+    </div>
+    <!-- cover -->
+    <div class=" my-8" style="max-width: 65ch">
+        {data.image && (
+            <img src={coverImg.src} alt={coverImg.alt} class=" object-cover"/>
+        )}
+    </div>
+    <article class="prose dark:prose-invert w-full">
+        <slot />
+    </article>
+</div>
+<div class=" card-width mt-4">
+    {index > 0 && (
+        <a href={'../posts/'+entry[index-1].slug} class="test float-left card-style py-6 px-6 w-2/5 hover:bg-[--paginator-item-hover-bg-color] hover:text-[--primary] transition-colors">
+            <div class="flex items-center">
+                <i class="iconfont icon-left text-3xl"></i>{entry[index-1].title}
+            </div>
+        </a>
+    )}
+    {index < entry.length-1 && (
+        <a href={'../posts/'+entry[index+1].slug} class=" float-right card-style py-6 px-6 w-2/5 hover:bg-[--paginator-item-hover-bg-color] hover:text-[--primary] transition-colors">
+            <div class="flex items-center justify-end">
+                {entry[index+1].title}
+                <i class="iconfont icon-right text-3xl"></i>
+            </div>
+        </a>
+    )}
+</div>
+
+<script lang="js" define:vars={{math}}>
+    const renderLatex = () => {
+        if (window.MathJax && math) {
+            MathJax.typesetPromise().then(() => {
+                // console.log('MathJax rendering complete');
+            }).catch((err) => {
+                console.error('MathJax rendering error:', err);
+            });
+        }
+    }
+    document.addEventListener('astro:page-load', renderLatex);
+</script>
+
+
+<style>
+.prose {
+    img{
+        @apply rounded-2xl shadow-xl max-h-[600px] mx-auto mt-4 mb-6;
+    }
+
+    p{
+        @apply text-justify;
+    }
+
+    p,h1,h2,h3,h4,h5,h6{
+        code{
+            padding: 4px;
+            background-color: var(--inline-code-bg-color);
+            color: var(--inline-code-text-color);
+            border-radius: 4px;
+            &::before, &::after{
+                content: '';
+            }
+        }
+    }
+
+    hr{
+        @apply my-8;
+    }
+
+    a{
+        color: var(--primary);
+        text-decoration: none;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+}
+</style>
+

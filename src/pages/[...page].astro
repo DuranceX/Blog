@@ -1,0 +1,34 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro"
+import PostCard from "@/components/PostCard.astro";
+import { getPosts } from "@/utils/collections"
+import CoverCard from "@/components/CoverCard.astro";
+import Paginator from "@/components/Paginator.astro";
+import Config from "@/store/config"
+
+export async function getStaticPaths({ paginate }: { paginate: any }) {
+  const posts = await getPosts();
+  const pageSize = Config.getConfig().pageSize;
+  return paginate(posts, { pageSize: pageSize });
+}
+
+const { page }: { page: any } = Astro.props;
+
+---
+<BaseLayout pageTitle="Home">
+	<CoverCard />
+	{page.data.map((post:any)=>{
+		return (
+		<div class="flex flex-col card-width">
+			<PostCard post={post}></PostCard>
+		</div>
+		)
+	})}
+  <Paginator {...page}></Paginator>
+</BaseLayout>
+
+<style>
+.blue{
+	color:var(--primary)
+}
+</style>
