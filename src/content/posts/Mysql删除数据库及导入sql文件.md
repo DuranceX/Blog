@@ -5,17 +5,17 @@ tags: ["mysql"]
 ---
 
 ### 添加数据库
-```mysql
+``` shell
 create database xxxx;
 ```
 
 ### 删除数据库
-```mysql
+``` shell
 drop database xxxx;
 ```
 
 ### 读取sql文件
-```mysql
+``` shell
 #进入mysql命令行
 mysql -u root -p
 #选中数据库

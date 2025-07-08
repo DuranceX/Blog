@@ -22,7 +22,7 @@ error: failed to push some refs to 'git@github.com:GoatYoung/DormManager.git'
 ```
 
 **出现问题的原因**
-![](../attachment/problems/can't_find_branch.png)
+![](../attachment/problems/cant_find_branch.png)
 
 本地库对应的分支是master，而尝试推的云端分支是Cardy，两个分支不一致，所以出现报错
 

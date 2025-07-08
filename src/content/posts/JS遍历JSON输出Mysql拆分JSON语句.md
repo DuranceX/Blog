@@ -37,7 +37,7 @@ softtissue:{
 ```
 
 这样就会用到一个MySQL命令
-```mysql
+``` shell
 JSON_UNQUOTE(JSON_EXTRACT(softtissue.nasalBase, '$.Col_Sn_Ls')) AS 'nasalBase_Col_Sn_Ls',
 ```
 但是如果针对每一个属性都手写这个代码的话过于麻烦，因此考虑通过js遍历JSON，自动拼接生成此类语句

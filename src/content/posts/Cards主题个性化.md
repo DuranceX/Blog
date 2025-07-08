@@ -18,7 +18,7 @@ tags: ["博客", "美化"]
 
 找到主题目录下的`\source\css\style\_functions\cover.styl`，将原来的`.cover`修改为`.cover_none`，并另外添加下列样式代码：
 
-```css
+``` css
 .cover
     display: block;
     text-align: center;
@@ -146,7 +146,7 @@ code
 
 原来使用的是Fluid主题，其中文章封面的设置使用的是`index_img`属性，而cards主题使用的是`thumbnail`属性，文章较多懒得一一修改，便想着怎么让cards也可以使用`index_img`属性。在`\layout\_meta\thumbnail.ejs`文件中，将代码修改成
 
-```ejs
+```js
 <% if (theme.meta.thumbnail.enable === true && (post.thumbnail || theme.meta.thumbnail.default || post.index_img)) { %>
     <% if (theme.lazyload && theme.lazyload.enable === true) { %>
         <div class="post-thumbnail lazy" data-bg="<%= post.thumbnail || post.index_img || theme.meta.thumbnail.default %>"></div>
