@@ -10,12 +10,12 @@ image:
 
 *出错代码：*
 
-``` git
+``` shell
 git push origin Cardy
 ```
 
 *报错信息：*
-``` git
+``` shell
 $ git push origin Cardy
 error: src refspec Cardy does not match any.
 error: failed to push some refs to 'git@github.com:GoatYoung/DormManager.git'
@@ -29,7 +29,7 @@ error: failed to push some refs to 'git@github.com:GoatYoung/DormManager.git'
 **解决办法**
 
 将代码改成：
-``` git 
+``` shell 
 git push origin master:Cardy
 ```
 即：将本地库的master分支推到云端的Cardy分支上。

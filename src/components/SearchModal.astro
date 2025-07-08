@@ -1,6 +1,6 @@
 ---
 import { getPosts } from "@/utils/collections"
-const { show, onClose } = Astro.props;
+const { show } = Astro.props;
 
 const posts = await getPosts();
 ---
@@ -125,17 +125,6 @@ class SearchModal extends HTMLElement {
     const nextBtn = document.getElementById('search-next');
     const pageInfo = document.getElementById('search-page-info');
 
-    function clearAll() {
-      query = '';
-      allResults = [];
-      page = 1;
-      if (input) input.value = '';
-      if (resultList) resultList.innerHTML = '';
-      if (loadingDiv) loadingDiv.style.display = 'none';
-      if (noResultDiv) noResultDiv.style.display = 'none';
-      if (pagination) pagination.style.display = 'none';
-    }
-
     function renderPage() {
       resultList.innerHTML = '';
       if (allResults.length === 0) {
@@ -145,7 +134,7 @@ class SearchModal extends HTMLElement {
       const totalPages = Math.ceil(allResults.length / pageSize);
       const start = (page - 1) * pageSize;
       const end = Math.min(start + pageSize, allResults.length);
-      allResults.slice(start, end).forEach(({ post, matchedFields }) => {
+      allResults.slice(start, end).forEach(({ post }) => {
         const li = document.createElement('li');
         li.className = 'py-2 border-b last:border-b-0 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700';
         li.innerHTML = `

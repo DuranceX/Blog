@@ -68,7 +68,7 @@ cover:
 
 然后在`\layout\_partial\source\cover.ejs`文件中将代码修改为
 
-```ejs
+```js
 <%- partial('./header', null, {cache: false, path: path}) %>
 <% if (page.cover !== false) { %>
     <% if (theme.cover.banner) { %>

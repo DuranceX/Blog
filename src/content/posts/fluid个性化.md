@@ -14,7 +14,7 @@ image:
 ## 网页标题浏览器恶搞
 
 在` \themes\fluid\source\js` 下创建一个新的js文件，例如` FunnyTitle.js`，输入如下内容：
-``` lua{javascript,}
+``` js
 // 浏览器搞笑标题
 var OriginTitle = document.title;
 var titleTime;
@@ -154,7 +154,7 @@ https://v1.hitokoto.cn/?c=c&c=d （从游戏分类和小说分类中获取一个
 原本用的是网易云的的外链播放器，然鹅！网易云几乎所有的歌都因版权问题无法生成外链播放器，即使通过一些方法生成了也无法播放，因此采用了APlayer。
 
 首先安装Aplayer
-``` git
+``` shell
 cnpm install aplayer --save
 ```
 我因为网络的问题替换了成了淘宝的镜像，若没有设置过直接使用npm即可。

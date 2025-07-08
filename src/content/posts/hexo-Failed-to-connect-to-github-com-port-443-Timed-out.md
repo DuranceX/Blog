@@ -16,7 +16,7 @@ Failed to connect to github.com port 443: Timed out
 **解决办法**
 
 输入
-``` git 
+``` shell
 git config --global http.proxy http://127.0.0.1:1080
 
 git config --global https.proxy http://127.0.0.1:1080

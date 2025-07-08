@@ -40,7 +40,7 @@ math:
 ![](/img/problems/good-katex.png)
 
 若看不到效果的话，依次执行
-``` git 
+``` shell
 hexo clean
 hexo g
 hexo s

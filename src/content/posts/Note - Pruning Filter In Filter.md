@@ -25,7 +25,7 @@ tags: ["深度学习"]
 ## 1. 滤波器骨架-Filter Skeleton（FS）
 滤波器骨架是一个描述滤波器形状的矩阵，即在这 $K*K$ 个 Stripe 中，该 Filter 中哪几个 Stripe 是有效的，如下图所示。
 
-![](../attachment/论文笔记/[Pasted_image_20211127115139.png)
+![](../attachment/论文笔记/Pasted_image_20211127115139.png)
 每个 FS 一开始都是一个全一矩阵，在训练时，将 FS 与滤波器权重相乘，即 1 的位置留下，0 的位置去除。其损失函数表示为
 $$L = \sum_{(x,y)}loss(f(x,W\odot I),y) \tag{1}$$
 其中 $I$ 代表 FS，$\odot$ 代表点乘，接下来是将 FS 与滤波器权重相乘，即
