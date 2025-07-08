@@ -14,12 +14,8 @@ let coverImg = {
 
 // 判断是否是本地图片路径
 if (data.image?.url?.startsWith('../attachment/')) {
-  try {
-    const pathKey = `../content/${data.image.url.replace('../', '')}`;
-    coverImg.src = localImages[pathKey].src || '';
-  } catch (error) {
-    console.log('src',coverImg);
-  }
+  const pathKey = `../content/${data.image.url.replace('../', '')}`;
+  coverImg.src = localImages[pathKey].src || '';
 } else {
   coverImg.src = data.image?.url || '';
 }
